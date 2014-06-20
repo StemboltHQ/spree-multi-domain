@@ -4,8 +4,8 @@ module Spree
   describe BaseHelper do
     before(:each) do
       @store = FactoryGirl.create(:store,
-        default_meta_keywords: 'foo bar',
-        default_meta_description: 'stuff and things'
+        meta_keywords: 'foo bar',
+        meta_description: 'stuff and things'
       )
 
       helper.stub(:current_store) { @store }
