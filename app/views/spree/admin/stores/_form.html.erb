@@ -87,4 +87,31 @@
       <% end %>
     </div>
   </div>
+
+  <div class='row'>
+    <div class="alpha twelve columns">
+      <fieldset class="store-general-settings no-border-bottom">
+        <legend align="center"><%= t ".general_settings" %></legend>
+        <%= f.field_container :site_url do %>
+          <%= f.label :site_url, Spree.t(:site_url) %><br />
+          <%= f.text_field :site_url, size: 70 %>
+        <% end %>
+
+        <%= f.field_container :seo_title do %>
+          <%= f.label :seo_title, Spree.t(:site_title) %><br />
+          <%= f.text_field :seo_title, size: 70 %>
+        <% end %>
+
+        <%= f.field_container :meta_keywords do %>
+          <%= f.label :meta_keywords, Spree.t(:meta_keywords) %><br />
+          <%= f.text_field :meta_keywords, size: 70 %>
+        <% end %>
+
+        <%= f.field_container :meta_description do %>
+          <%= f.label :meta_description, Spree.t(:meta_description) %><br />
+          <%= f.text_area :meta_description, size: 70 %>
+        <% end %>
+      </fieldset>
+    </div>
+  </div>
 </div>

@@ -16,9 +16,14 @@ en:
     default: Default
     store_name: Name
     store_code: Code
+    site_title: Site Title
     promotion_rule_types:
       store:
         name: Store
         description: "Store must match one from the list"
     store_rule:
       choose_stores: "Choose Stores"
+    admin:
+      stores:
+        form:
+          general_settings: General Settings
