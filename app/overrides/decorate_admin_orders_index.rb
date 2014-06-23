@@ -18,6 +18,6 @@ Deface::Override.new(
   virtual_path: "spree/admin/orders/index",
   name: "multi_domain_admin_orders_index_table_row",
   insert_top: '[data-hook="admin_orders_index_rows"]',
-  text: '<td class="align-center"><%= order.store.name %></td>',
+  text: '<td class="align-center"><%= order.store.try(:name) %></td>',
   disabled: false
 )
