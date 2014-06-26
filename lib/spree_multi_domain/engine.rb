@@ -13,6 +13,14 @@ module SpreeMultiDomain
 
       Spree::Config.searcher_class = Spree::Search::MultiDomain
       ApplicationController.send :include, SpreeMultiDomain::MultiDomainHelpers
+
+      if Spree.user_class
+        Spree.user_class.class_eval do
+          def last_incomplete_order_on_store(store)
+            spree_orders.incomplete.where(created_by_id: self.id, store_id: store.id).order("created_at DESC").first
+          end
+        end
+      end
     end
 
     config.to_prepare &method(:activate).to_proc
@@ -44,13 +52,24 @@ module SpreeMultiDomain
           options[:create_order_if_necessary] ||= false
           current_order_without_multi_domain(options)
 
-          if @current_order and current_store and @current_order.store.nil?
-            @current_order.update_attribute(:store_id, current_store.id)
+          if @current_order && current_store && @current_order.store.nil?
+            @current_order.update_column(:store_id, current_store.id)
           end
 
           @current_order
         end
         alias_method_chain :current_order, :multi_domain
+
+        def set_current_order
+          if user = try_spree_current_user
+            last_incomplete_order = user.last_incomplete_order_on_store(current_store)
+            if session[:order_id].nil? && last_incomplete_order
+              session[:order_id] = last_incomplete_order.id
+            elsif current_order(create_order_if_necessary: true) && last_incomplete_order && current_order != last_incomplete_order
+              current_order.merge!(last_incomplete_order, user)
+            end
+          end
+        end
       end
     end
 
