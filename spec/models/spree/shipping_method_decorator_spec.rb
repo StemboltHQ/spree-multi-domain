@@ -5,8 +5,13 @@ describe Spree::ShippingMethod do
   let(:order) { create :order, :store => store }
   let(:store) { create :store }
 
-  describe '.store_match?' do
-    subject { shipping_method.store_match?(order) }
+  describe '.available_for_store?' do
+    subject { shipping_method.available_for_store?(order) }
+
+    context 'when the order does not belong to a store' do
+      before { order.store = nil }
+      it { should == true }
+    end
 
     context 'when store contains this shipping method' do
       before { store.shipping_methods << shipping_method }
