@@ -4,6 +4,8 @@ module SpreeMultiDomain
       receiver.send :helper, 'spree/products'
       receiver.send :helper, 'spree/taxons'
 
+      receiver.send :before_filter, :prepend_store_view_path
+
       receiver.send :helper_method, :current_store
       receiver.send :helper_method, :current_tracker
     end
@@ -20,6 +22,10 @@ module SpreeMultiDomain
       @taxonomies ||= current_store.present? ? Spree::Taxonomy.where(["store_id = ?", current_store.id]) : Spree::Taxonomy
       @taxonomies = @taxonomies.includes(:root => :children)
       @taxonomies
+    end
+
+    def prepend_store_view_path
+      prepend_view_path "app/views/#{current_store.code}" if current_store
     end
   end
 end
