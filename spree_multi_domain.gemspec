@@ -31,4 +31,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'spree_multi_currency'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'sass-rails', '~> 4.0.2'
+  s.add_development_dependency 'pry-rails'
 end
