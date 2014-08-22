@@ -16,6 +16,7 @@ require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/authorization_helpers'
 
 require 'spree_multi_domain/factories'
+require 'pry'
 
 RSpec.configure do |config|
   # == Mock Framework
