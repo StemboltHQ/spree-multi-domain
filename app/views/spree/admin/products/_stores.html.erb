@@ -3,4 +3,5 @@
   <% Spree::Store.all.each do |store| %>
     <%= check_box_tag "product[store_ids][]", store.id, @product.stores.include?(store) %> <%= store.name %>
   <% end %>
+  <%= hidden_field_tag "product[store_ids][]", [] %>
 </p>
